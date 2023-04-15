@@ -1,0 +1,59 @@
+.gift-s-container {
+  position: relative;
+  margin: 1rem auto;
+}
+
+.gift-s-container .swiper {
+  width: 90%;
+  position: unset;
+  padding: 1rem;
+}
+
+.gift-s-container .swiper-button-prev {
+  left: 0;
+  @media (max-width: 768px) {
+    left: 3%;
+    scale: 0.8;
+  }
+  color: var(--color-text);
+  background-color: #eaeaea;
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  padding: 1rem;
+}
+
+.gift-s-container .swiper-button-next {
+  right: 0;
+  @media (max-width: 768px) {
+    right: 3%;
+    scale: 0.8;
+  }
+  color: var(--color-text);
+  background-color: #eaeaea;
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  padding: 1rem;
+}
+
+.gift-s-container .swiper-slide {
+  display: flex;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.gift__card__details > img {
+  z-index: 0;
+  height: auto;
+  width: 100%;
+  border-radius: 0.5rem;
+  object-fit: contain;
+}
+
+.gift__card__details {
+  z-index: 0;
+  width: 100%;
+  height: auto;
+}

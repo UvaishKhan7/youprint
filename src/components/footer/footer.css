@@ -1,0 +1,149 @@
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  border-top: 1px solid #e6e6e6;
+  width: 100%;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  color: var(--color-text);
+}
+
+.upper-section,
+.middle-section {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.upper-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 20rem;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.upper-container .service {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.upper-section > .upper-container > img {
+  width: 3rem;
+}
+
+.middle-section > .middle-container > h4,
+.lower-section > .lower-container > h4,
+.upper-container > .service > h4,
+.upper-container > .service > a {
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.upper-container > .service > p {
+  font-size: 0.7rem;
+}
+
+.upper-container > .service > a {
+  margin-top: 0.8rem;
+  text-decoration: none;
+  color: var(--color-text);
+  text-decoration: underline;
+  font-weight: 500;
+  @media (min-width: 240px) and (max-width: 800px) {
+    margin-top: 0.2rem;
+  }
+}
+
+.middle-section > .middle-container > ul {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.middle-section > .middle-container > ul > li > a {
+  font-size: 0.8rem;
+  color: var(--color-text);
+}
+
+.middle-section > .middle-container > ul > li > a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.middle-section > .social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.middle-section > .social-links > a {
+  text-decoration: underline;
+  color: var(--color-text);
+  font-size: 0.7rem;
+}
+
+.middle-section > .social-links > .social-media-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.lower-section {
+  width: 100%;
+  padding: 0 4rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lower-section > .lower-container > .payment-modes {
+  display: flex;
+  gap: 1rem;
+}
+
+.lower-section > .lower-container:nth-child(2) {
+  display: flex;
+  align-items: flex-end;
+}
+
+.lower-section > .lower-container > .copyright {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+}
+
+/* ============================== For Small Devices ============================== */
+
+@media (min-width: 240px) and (max-width: 800px) {
+    footer{
+        padding: 1.5rem 1.2rem;
+        margin-top: 5rem;
+    }
+  .upper-section,
+  .middle-section,
+  .lower-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin-bottom: 0.5rem;
+  }
+  .upper-section,
+  .middle-section {
+    gap: 1.25rem;
+  }
+  .middle-section > .social-links {
+    gap: 0.5rem;
+  }
+  .lower-section{
+    flex-direction: column;
+    padding: 0;
+    gap: 1rem;
+    margin-bottom: 5rem;
+  }
+}

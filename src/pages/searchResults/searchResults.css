@@ -1,0 +1,13 @@
+.search__results {
+  margin-top: 2rem;
+  padding: 0 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-evenly;
+  @media screen and (max-width: 800px) {
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 0.5rem;
+  }
+}

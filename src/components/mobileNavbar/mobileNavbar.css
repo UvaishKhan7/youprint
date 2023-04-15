@@ -1,0 +1,91 @@
+.mobile-navbar {
+  background: rgba(0, 0, 0, 0.3);
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.7rem 1.5rem;
+  z-index: 2;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1rem;
+  gap: 0.8rem;
+  border-radius: 3rem;
+  backdrop-filter: blur(15px);
+}
+
+.mobile-navbar a {
+  background: transparent;
+  padding: 0.9rem;
+  border-radius: 50%;
+  display: flex;
+  color: var(--color-secondary);
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.mobile-navbar > a {
+  font-size: 1.5rem;
+}
+
+.mobile-navbar a:hover {
+  background: rgba(143, 211, 250, 0.3);
+}
+
+.mobile-navbar a.active {
+  background: var(--color-secondary);
+  color: white;
+}
+
+.mobile-navbar > a:nth-child(4) > img {
+  width: 1.5rem;
+}
+
+.mobile-navbar-search {
+  position: absolute;
+  top: 0;
+  padding: 1rem;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  border: 1px solid var(--color-secondary);
+  border-radius: 3rem;
+  transition: all 0.7s ease-in-out;
+  background-color: var(--color-secondary);
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.mobile-navbar-search > input {
+  width: 90%;
+  height: 100%;
+  background: transparent;
+  border-radius: 3rem;
+  margin: 0;
+  padding: 0 0.5rem;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.mobile-navbar-search > a {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.mobile-navbar-search > input::placeholder {
+  color: rgba(255, 255, 255, 0.699);
+}
+
+@media screen and (min-width: 1025px) {
+  .mobile-navbar {
+    display: none;
+  }
+}
