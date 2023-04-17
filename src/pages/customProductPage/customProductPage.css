@@ -1,6 +1,7 @@
 .custom__product__page__container {
   width: 100%;
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
   padding: 2rem 6rem;
@@ -60,11 +61,11 @@
   margin: 0;
   padding: 0;
   position: relative;
-  height: 65vh;
+  height: 80vh;
 }
 
 .custom__product__img__container > img {
-  width: 45%;
+  width: 100%;
   height: auto;
   object-fit: contain;
   margin-top: 1rem;
@@ -74,6 +75,13 @@
   position: absolute;
   bottom: 0.5rem;
   left: 0;
+  width: 30%;
+}
+
+.thd__image > img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .bottom__buttons__container {
@@ -135,6 +143,7 @@
 }
 
 .button-group {
+  display: flex;
   width: fit-content;
   height: 2rem;
 }
@@ -148,7 +157,7 @@
   height: 100%;
 }
 
-.button-group > input {
+.button-group > div {
   text-align: center;
   padding: none;
   width: 4rem;
@@ -202,7 +211,9 @@
   margin: 1rem 0;
 }
 
-.custom__product__page__bottom > .custom__product__bottom__btn__container > button {
+.custom__product__page__bottom
+  > .custom__product__bottom__btn__container
+  > button {
   background-color: var(--color-buttons);
   color: white;
   font-family: var(--default-font);
@@ -247,4 +258,80 @@
   list-style-type: disc;
   line-height: 2rem;
   margin-left: 1.25rem;
+}
+
+/* ==================================================== For Small Screens ==================================================== */
+
+@media (min-width: 240px) and (max-width: 800px) {
+  .custom__product__page__container {
+    padding: 0.5rem;
+  }
+  .custom__product__page__upper {
+    border-bottom: 1px solid rgba(189, 189, 189, 0.541);
+    padding: 0 0.5rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+  }
+  .custom__product__page__image__container {
+    width: 100%;
+  }
+  .top__buttons__container > button {
+    gap: 0.25rem;
+    width: 6rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  .top__buttons__container > button > img {
+    width: 1rem;
+  }
+  .custom__product__img__container {
+    height: 55vh;
+  }
+  .custom__product__img__container > img {
+    width: 100%;
+  }
+  .custom__product__shop__options {
+    width: 100%;
+  }
+  .custom__product__shop__title,
+  .ratings {
+    margin: 0.25rem 0;
+  }
+  .custom__product__options__btn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .custom__product__page__bottom {
+    width: 98%;
+    margin-top: 0.25rem;
+  }
+  .custom__product__technical {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-family: var(--default-font);
+    font-weight: 300;
+  }
+  .custom__product__technical > p > b {
+    font-weight: 500;
+  }
+
+  .custom__product__technical > ul {
+    font-size: 0.9rem;
+    font-family: var(--default-font);
+  }
+
+  .custom__product__technical > ul > li {
+    list-style-type: disc;
+    line-height: 2rem;
+    margin-left: 1.25rem;
+  }
 }

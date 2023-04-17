@@ -84,6 +84,7 @@
 .name > :nth-child(1) {
   font-size: 1rem;
   font-weight: 600;
+  text-transform: capitalize;
 }
 
 .name > :nth-child(2) {

@@ -4,10 +4,11 @@ import { Route, Routes } from 'react-router-dom';
 import MobileNavbar from './components/mobileNavbar/MobileNavbar';
 import HeaderUpper from './components/header/headerUpper/HeaderUpper';
 import HeaderLower from './components/header/headerLower/HeaderLower';
-//import LandingPage from './pages/landingPage/LandingPage';
+import LandingPage from './pages/landingPage/LandingPage';
 import SearchResults from './pages/searchResults/SearchResults';
 import Footer from './components/footer/footer';
-import ProductPage from './pages/productPage/ProductPage';
+import CustomProductPage from './pages/customProductPage/CustomProductPage';
+import Cart from './pages/cart/Cart';
 
 export default function App() {
   return (
@@ -18,8 +19,10 @@ export default function App() {
       </header>
       <MobileNavbar />
       <Routes>
-        <Route path='/' Component={ProductPage} />
+        <Route path='/' Component={LandingPage} />
+        <Route path='/product/:id' Component={CustomProductPage} />
         <Route path='/search' Component={SearchResults} />
+        <Route path='/cart' Component={Cart} />
       </Routes>
       <Footer />
     </div>

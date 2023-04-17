@@ -3,69 +3,30 @@ import './landingPage.css';
 import GiftCardSlider from '../../components/giftCardSlider/GiftCardSlider';
 import Carousel from '../../components/heroSection/heroCardCarousel/Carousel';
 import ProductCard from '../../components/productCard/ProductCard';
-import { connect } from 'react-redux';
-import {
-    setCurrentPage,
-    updateProductList,
-    enablePrevButton,
-    enableNextButton,
-    disablePrevButton,
-    disableNextButton,
-} from '../../redux/actions/paginationActions';
+import { Pagination } from 'antd';
 
-const LandingPage = (props) => {
+const LandingPage = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [products, setProducts] = useState([]);
-
-    const {
-        currentPage,
-        prevButtonDisabled,
-        nextButtonDisabled,
-        setCurrentPage,
-        updateProductList,
-        enablePrevButton,
-        enableNextButton,
-        disablePrevButton,
-        disableNextButton,
-    } = props;
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 12;
 
     useEffect(() => {
         // Fetch all products initially
-        fetchAllProducts(1, 10);
+        fetchAllProducts();
     }, []);
 
-    useEffect(() => {
-        // Update pagination logic whenever products state changes
-        const startIndex = (currentPage - 1) * 10;
-        const endIndex = startIndex + 10;
-        const paginatedProducts = products.slice(startIndex, endIndex);
-        updateProductList(paginatedProducts);
-
-        // Enable/Disable Prev/Next buttons based on current page
-        if (currentPage === 1) {
-            disablePrevButton();
-        } else {
-            enablePrevButton();
-        }
-        if (endIndex >= products.length) {
-            disableNextButton();
-        } else {
-            enableNextButton();
-        }
-    }, [currentPage, disableNextButton, disablePrevButton, enableNextButton, enablePrevButton, products, updateProductList])
-
-    const fetchAllProducts = (currentPage, limit) => {
+    const fetchAllProducts = () => {
         // Fetch API to get all products
-        fetch(`https://dummyjson.com/products?limit=${limit}&skip=${(currentPage - 1) * limit}`)
+        fetch('https://dummyjson.com/products')
             .then(response => response.json())
             .then(data => setProducts(data.products))
             .catch(error => console.error(error));
     };
 
-
-    const fetchProductsByCategory = (category, currentPage, limit) => {
+    const fetchProductsByCategory = (category) => {
         // Fetch API to get products by category
-        fetch(`https://dummyjson.com/products?category=${category}&limit=${limit}&skip=${(currentPage - 1) * limit}`)
+        fetch(`https://dummyjson.com/products?category=${category}`)
             .then(response => response.json())
             .then(data => setProducts(data.products))
             .catch(error => console.error(error));
@@ -73,25 +34,16 @@ const LandingPage = (props) => {
 
     const handleCategoryFilter = (category) => {
         setSelectedCategory(category);
-        setCurrentPage(currentPage);
+        setCurrentPage(1);
         if (category === null) {
-            // Fetch all products if category is null (All Categories button is clicked)
-            fetchAllProducts(currentPage, 10);
+            fetchAllProducts();
         } else {
-            // Fetch products by category
-            fetchProductsByCategory(category, currentPage, 10);
+            fetchProductsByCategory(category);
         }
     };
 
-    const handleNextPage = () => {
-        setCurrentPage(currentPage + 1);
-    };
-
-    const handlePrevPage = () => {
-        setCurrentPage(currentPage - 1);
-        if (currentPage === 1) {
-            disablePrevButton()
-        }
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
     };
 
     return (
@@ -125,29 +77,20 @@ const LandingPage = (props) => {
                     {
                         products
                             .filter(product => !selectedCategory || product.category === selectedCategory)
+                            .slice((currentPage - 1) * pageSize, currentPage * pageSize)
                             .map((product, index) => (
                                 <ProductCard product={product} key={index} />
                             ))
                     }
                 </div>
-
                 {/* Pagination */}
-                <div className="carousel__controls">
-                    <button
-                        className="carousel__prev"
-                        onClick={handlePrevPage}
-                        disabled={prevButtonDisabled}
-                    >
-                        Prev
-                    </button>
-                    <button
-                        className="carousel__next"
-                        onClick={handleNextPage}
-                        disabled={nextButtonDisabled}
-                    >
-                        Next
-                    </button>
-                </div>
+                <Pagination
+                    defaultCurrent={1}
+                    current={currentPage}
+                    total={products.filter(product => !selectedCategory || product.category === selectedCategory).length}
+                    pageSize={pageSize}
+                    onChange={handlePageChange}
+                />
             </div>
             {/* Gifts Section */}
             <div className="gifts__section">
@@ -162,21 +105,4 @@ const LandingPage = (props) => {
     );
 }
 
-// Redux state mapping
-const mapStateToProps = (state) => ({
-    currentPage: state.pagination.currentPage,
-    prevButtonDisabled: state.pagination.prevButtonDisabled,
-    nextButtonDisabled: state.pagination.nextButtonDisabled,
-});
-
-// Redux action mapping
-const mapDispatchToProps = (dispatch) => ({
-    setCurrentPage: (page) => dispatch(setCurrentPage(page)),
-    updateProductList: (products) => dispatch(updateProductList(products)),
-    enablePrevButton: () => dispatch(enablePrevButton()),
-    enableNextButton: () => dispatch(enableNextButton()),
-    disablePrevButton: () => dispatch(disablePrevButton()),
-    disableNextButton: () => dispatch(disableNextButton()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);
+export default LandingPage;

@@ -5,17 +5,19 @@ import { BsSearch } from 'react-icons/bs';
 import { FaRegUser } from 'react-icons/fa';
 import { RiShoppingCartLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setSearchResults } from '../../redux/actions/searchResultsActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllCarts, getCartItemsCount, getCartTotal } from '../../redux/cartSlice';
 
 export default function MobileNavbar() {
 
     const [activeNav, setActiveNav] = useState('#');
     const [isSearchVisible, setIsSearchVisible] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchTerm, setSearchTerm] = useState("");
     const [isTouchDevice, setIsTouchDevice] = useState(false);
-    const searchInputRef = useRef(null);
     const dispatch = useDispatch();
+    const itemsCount = useSelector(getCartItemsCount);
+    const searchInputRef = useRef(null);
+    const carts = useSelector(getAllCarts);
 
     const handleLinkClick = (nav) => {
         setActiveNav(nav);
@@ -26,21 +28,10 @@ export default function MobileNavbar() {
         setIsSearchVisible(true);
     };
 
-    const handleSearchInputChange = (e) => {
-        setSearchQuery(e.target.value);
-    };
-
-    const searchProduct = () => {
-        fetch(`https://dummyjson.com/products/search?q=${searchQuery}`)
-            .then(res => res.json())
-            .then((data) => {
-                dispatch(setSearchResults(data.products));
-                setIsSearchVisible(false);
-            })
-            .catch((error) => {
-                console.error('Error fetching search results:', error);
-            });
-    };
+    const handleSearchTerm = (e) => {
+        e.preventDefault();
+        setSearchTerm(e.target.value);
+    }
 
     const handleClickOutsideSearchInput = (e) => {
         if (searchInputRef.current && !searchInputRef.current.contains(e.target)) {
@@ -53,6 +44,11 @@ export default function MobileNavbar() {
             setIsTouchDevice(true);
         }
     };
+
+    useEffect(() => {
+        dispatch(getCartTotal());
+        // eslint-disable-next-line
+    }, [carts])
 
     useEffect(() => {
         document.addEventListener('click', handleClickOutsideSearchInput);
@@ -75,10 +71,10 @@ export default function MobileNavbar() {
                             name="search"
                             id="search"
                             placeholder='Search any item'
-                            onChange={handleSearchInputChange}
+                            onChange={(e) => handleSearchTerm(e)}
                         />
-                        <Link to='/search'>
-                            <BsSearch onClick={searchProduct} />
+                        <Link to={`search/${searchTerm}`}>
+                            <BsSearch />
                         </Link>
                     </div>
                 )}
@@ -86,7 +82,7 @@ export default function MobileNavbar() {
                 </Link>
                 <Link to='/' onTouchStart={isTouchDevice ? handleSearchClick : null} onClick={handleSearchClick} className={activeNav === 'search' ? 'active' : ''}><BsSearch /></Link>
                 <Link to='/account' onClick={() => handleLinkClick('account')} className={activeNav === 'account' ? 'active' : ''}><FaRegUser /></Link>
-                <Link to="/cart" onClick={() => handleLinkClick('cart')} className={activeNav === 'cart' ? 'active' : ''}><RiShoppingCartLine /> </Link>
+                <Link to="/cart" onClick={() => handleLinkClick('cart')} className={activeNav === 'cart' ? 'active' : 'cart_badge'}><RiShoppingCartLine /> <span>{itemsCount}</span></Link>
             </div>
         </div>
     )

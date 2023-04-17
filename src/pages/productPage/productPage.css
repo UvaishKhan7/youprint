@@ -1,6 +1,7 @@
 .Product__page__container {
   width: 100%;
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
   padding: 2rem 6rem;
@@ -81,6 +82,7 @@
 }
 
 .button-group {
+  display: flex;
   width: fit-content;
   height: 2rem;
 }
@@ -94,7 +96,7 @@
   height: 100%;
 }
 
-.button-group > input {
+.button-group > div {
   text-align: center;
   padding: none;
   width: 4rem;
@@ -143,3 +145,12 @@
   gap: 1rem;
   margin: 1rem 0;
 }
+
+/* @media (min-width: 240px) and (max-width: 800px) {
+  .Product__page__container {
+    padding: 1rem 0.5rem;
+  }
+  .Product__page__upper {
+    padding: 0;
+  }
+} */
