@@ -82,7 +82,7 @@ export default function MobileNavbar() {
                 </Link>
                 <Link to='/' onTouchStart={isTouchDevice ? handleSearchClick : null} onClick={handleSearchClick} className={activeNav === 'search' ? 'active' : ''}><BsSearch /></Link>
                 <Link to='/account' onClick={() => handleLinkClick('account')} className={activeNav === 'account' ? 'active' : ''}><FaRegUser /></Link>
-                <Link to="/cart" onClick={() => handleLinkClick('cart')} className={activeNav === 'cart' ? 'active' : 'cart_badge'}><RiShoppingCartLine /> <span>{itemsCount}</span></Link>
+                <Link to="/cart" onClick={() => handleLinkClick('cart')} className={activeNav === 'cart' ? 'active cart_badge' : 'cart_badge'}><RiShoppingCartLine /> <span>{itemsCount}</span></Link>
             </div>
         </div>
     )

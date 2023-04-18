@@ -20,11 +20,14 @@ import { fetchAsyncProductSingle, getProductSingle, getSingleProductStatus } fro
 import Loader from "../../components/loader/Loader";
 import { useDispatch, useSelector } from 'react-redux';
 import { saveAs } from "file-saver";
+import { DeleteForeverOutlined } from '@mui/icons-material';
+import { Rnd } from 'react-rnd';
 
 export default function CustomProductPage() {
 
     const [quantity, setQuantity] = useState(1);
     const [previewImage, setPreviewImage] = useState(null);
+    const [isImageDeleted, setIsImageDeleted] = useState(false);
     const inputFileRef = useRef(null);
 
     const location = useLocation();
@@ -33,7 +36,6 @@ export default function CustomProductPage() {
     const product = useSelector(getProductSingle);
     const productSingleStatus = useSelector(getSingleProductStatus);
 
-    // getting single product
     useEffect(() => {
         dispatch(fetchAsyncProductSingle(id));
         // eslint-disable-next-line
@@ -52,6 +54,12 @@ export default function CustomProductPage() {
         // Trigger the file input click event when the button is clicked
         inputFileRef.current.click();
     };
+
+    const handleDeleteImage = () => {
+        // Reset the preview image and set the isImageDeleted state to true
+        setPreviewImage(null);
+        setIsImageDeleted(true);
+    }
 
     let discountedPrice = (product?.price) - (product?.price * (product?.discountPercentage / 100));
     if (productSingleStatus === STATUS.LOADING) {
@@ -142,7 +150,7 @@ export default function CustomProductPage() {
             key: 'reviews',
             children: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi sunt nemo error est numquam perspiciatis a veritatis natus nisi suscipit, adipisci placeat tempore aliquam deserunt dolor ullam blanditiis sint. Veritatis.'
         }
-    ]
+    ];
 
     return (
         <div className='custom__product__page__container'>
@@ -165,10 +173,22 @@ export default function CustomProductPage() {
                     </div>
                     <div className="custom__product__img__container">
                         {/* Render the image preview */}
-                        {previewImage && (
-                            <img src={previewImage} alt="Preview" style={{ position: 'absolute', width: '100px' }} />
-                        )}
                         <img className="custom__product__page__image" src={product.thumbnail} alt='product' />
+                        {previewImage && !isImageDeleted && (
+                            <Rnd
+                                default={{
+                                    x: 0,
+                                    y: 0,
+                                    width: 320,
+                                    height: 200,
+                                }}
+                            >
+                                <img src={previewImage} alt="Preview" style={{ position: 'absolute', width: '100%', height: 'auto', objectFit: 'contain' }} />
+                            </Rnd>
+                        )}
+                        {previewImage && !isImageDeleted && (
+                            <button style={{ position: 'absolute', left: '0.2rem', top: '0.2rem', backgroundColor: 'rgba(255,255,255,0.4)', height: '2.5rem', width: '2.5rem', padding: '0.25rem', borderRadius: '50%', display: 'grid', placeItems: 'center' }} onClick={handleDeleteImage}><DeleteForeverOutlined sx={{ color: 'red' }} /> </button>
+                        )}
                         <div className="thd__image">
                             <img src={product.thumbnail} alt="3d view" />
                         </div>
@@ -262,7 +282,7 @@ export default function CustomProductPage() {
                 <Tabs
                     defaultActiveKey="1"
                     type="card"
-                    tabBarStyle={{ marginBottom: '0' }}
+                    tabBarStyle={{ marginBottom: '0', width: '100%' }}
                     items={items}
                 />
             </div>

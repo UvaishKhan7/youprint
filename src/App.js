@@ -9,6 +9,7 @@ import SearchResults from './pages/searchResults/SearchResults';
 import Footer from './components/footer/footer';
 import CustomProductPage from './pages/customProductPage/CustomProductPage';
 import Cart from './pages/cart/Cart';
+import Checkout from './pages/checkout/Checkout';
 
 export default function App() {
   return (
@@ -18,12 +19,15 @@ export default function App() {
         <HeaderLower />
       </header>
       <MobileNavbar />
-      <Routes>
-        <Route path='/' Component={LandingPage} />
-        <Route path='/product/:id' Component={CustomProductPage} />
-        <Route path='/search' Component={SearchResults} />
-        <Route path='/cart' Component={Cart} />
-      </Routes>
+      <div className="pages-container">
+        <Routes>
+          <Route path='/' Component={LandingPage} />
+          <Route path='/product/:id' Component={CustomProductPage} />
+          <Route path='/search/:searchTerm' Component={SearchResults} />
+          <Route path='/cart' Component={Cart} />
+          <Route path='/checkout' Component={Checkout} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   )

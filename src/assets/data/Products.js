@@ -73,3 +73,120 @@ export const SliderProducts = [
         img: img3
     }
 ]
+
+const states = [
+    {
+        id: 1,
+        state: "Andhra Pradesh"
+    },
+    {
+        id: 2,
+        state: "Arunachal Pradesh"
+    },
+    {
+        id: 3,
+        state: "Assam"
+    },
+    {
+        id: 4,
+        state: "Bihar"
+    },
+    {
+        id: 5,
+        state: "Chhattisgarh"
+    },
+    {
+        id: 6,
+        state: "Goa"
+    },
+    {
+        id: 7,
+        state: "Gujarat"
+    },
+    {
+        id: 8,
+        state: "Haryana"
+    },
+    {
+        id: 9,
+        state: "Himachal Pradesh"
+    },
+    {
+        id: 10,
+        state: "Jharkhand"
+    },
+    {
+        id: 11,
+        state: "Karnataka"
+    },
+    {
+        id: 12,
+        state: "Kerala"
+    },
+    {
+        id: 13,
+        state: "Madhya Pradesh"
+    },
+    {
+        id: 14,
+        state: "Maharashtra"
+    },
+    {
+        id: 15,
+        state: "Manipur"
+    },
+    {
+        id: 16,
+        state: "Meghalaya"
+    },
+    {
+        id: 17,
+        state: "Mizoram"
+    },
+    {
+        id: 18,
+        state: "Nagaland"
+    },
+    {
+        id: 19,
+        state: "Odisha"
+    },
+    {
+        id: 20,
+        state: "Punjab"
+    },
+    {
+        id: 21,
+        state: "Rajasthan"
+    },
+    {
+        id: 22,
+        state: "Sikkim"
+    },
+    {
+        id: 23,
+        state: "Tamil Nadu"
+    },
+    {
+        id: 24,
+        state: "Telangana"
+    },
+    {
+        id: 25,
+        state: "Tripura"
+    },
+    {
+        id: 26,
+        state: "Uttar Pradesh"
+    },
+    {
+        id: 27,
+        state: "Uttarakhand"
+    },
+    {
+        id: 28,
+        state: "West Bengal"
+    }
+];
+
+export default states;

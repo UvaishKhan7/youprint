@@ -5,9 +5,9 @@ import shopping_cart from '../../assets/icons/shopping-cart-black.svg';
 import { Link, useLocation } from 'react-router-dom';
 import { formatPrice } from '../../utils/helpers';
 import { getAllCarts, removeFromCart, toggleCartQty, clearCart } from '../../redux/cartSlice';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb, Divider } from 'antd';
 import swal from 'sweetalert';
-import { DeleteRounded } from '@mui/icons-material';
+import { DeleteOutlineRounded, DeleteRounded } from '@mui/icons-material';
 
 const CartPage = () => {
 
@@ -15,6 +15,8 @@ const CartPage = () => {
     const dispatch = useDispatch();
     const carts = useSelector(getAllCarts);
     const { itemsCount, totalAmount } = useSelector((state) => state.cart);
+
+    const isMobile = window.innerWidth <= 800;
 
     if (carts.length === 0) {
         swal({
@@ -83,55 +85,97 @@ const CartPage = () => {
 
                 <div className='cart-body'>
                     {
+
                         carts.map((cart) => {
                             return (
-                                <div className='cart-ctr' key={cart?.id}>
-                                    <div className='cart-ctd cart-ctd1'>
-                                        <button type="button" className='delete-btn text-dark' onClick={() => dispatch(removeFromCart(cart?.id))}><DeleteRounded sx={{ color: '#d11a2a' }} /></button>
-                                    </div>
-                                    <div className='cart-ctd cart-ctd2'>
-                                        <img src={cart?.thumbnail} alt="item_img" />
-                                    </div>
-                                    <div className='cart-ctd cart-ctd3'>
-                                        <span className='cart-ctxt'>{cart?.title}</span>
-                                    </div>
-                                    <div className='cart-ctd cart-ctd4'>
-                                        <span className='cart-ctxt'>{formatPrice(cart?.discountedPrice)}</span>
-                                    </div>
-                                    <div className='cart-ctd cart-ctd5'>
-                                        <div className='qty-change'>
-                                            <button onClick={() => dispatch(toggleCartQty({ id: cart?.id, type: "DEC" }))}>-</button>
-                                            <div className='qty-value'>
-                                                {cart?.quantity}
+                                !isMobile
+                                    ?
+                                    <div className='cart-ctr' key={cart?.id}>
+                                        <div className='cart-ctd cart-ctd1'>
+                                            <button type="button" className='delete-btn text-dark' onClick={() => dispatch(removeFromCart(cart?.id))}><DeleteRounded sx={{ color: '#f72548' }} /></button>
+                                        </div>
+                                        <div className='cart-ctd cart-ctd2'>
+                                            <img src={cart?.thumbnail} alt="item_img" />
+                                        </div>
+                                        <div className='cart-ctd cart-ctd3'>
+                                            <span className='cart-ctxt'>{cart?.title}</span>
+                                        </div>
+                                        <div className='cart-ctd cart-ctd4'>
+                                            <span className='cart-ctxt'>{formatPrice(cart?.discountedPrice)}</span>
+                                        </div>
+                                        <div className='cart-ctd cart-ctd5'>
+                                            <div className='qty-change'>
+                                                <button onClick={() => dispatch(toggleCartQty({ id: cart?.id, type: "DEC" }))}>-</button>
+                                                <div className='qty-value'>
+                                                    {cart?.quantity}
+                                                </div>
+                                                <button onClick={() => dispatch(toggleCartQty({ id: cart?.id, type: "INC" }))}>+</button>
                                             </div>
-                                            <button onClick={() => dispatch(toggleCartQty({ id: cart?.id, type: "INC" }))}>+</button>
+                                        </div>
+
+                                        <div className='cart-ctd cart-ctd6'>
+                                            <span className='cart-ctxt'>{formatPrice(cart?.totalPrice)}</span>
                                         </div>
                                     </div>
-
-                                    <div className='cart-ctd cart-ctd6'>
-                                        <span className='cart-ctxt text-orange fw-5'>{formatPrice(cart?.totalPrice)}</span>
+                                    :
+                                    <div className='cart-ctr' key={cart?.id}>
+                                        <div className="cart-upper">
+                                            <div className='upper-img'>
+                                                <img src={cart?.thumbnail} alt="item_img" />
+                                            </div>
+                                            <div className="upper-right">
+                                                <div className='mobile-title'>{cart?.title}</div>
+                                                <div className='mobile-price'>
+                                                    <span className='mobile-price-d'>{formatPrice(cart?.discountedPrice)}</span>
+                                                    <span className='mobile-price-r'>{formatPrice(cart?.totalPrice)}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='mobile-btns'>
+                                            <div className='mobile-qty-change'>
+                                                <button onClick={() => dispatch(toggleCartQty({ id: cart?.id, type: "DEC" }))}>-</button>
+                                                <div className='qty-value'>
+                                                    {cart?.quantity}
+                                                </div>
+                                                <button onClick={() => dispatch(toggleCartQty({ id: cart?.id, type: "INC" }))}>+</button>
+                                            </div>
+                                            <div className='mobile-delete'>
+                                                <button type="button" className='delete-btn text-dark' onClick={() => dispatch(removeFromCart(cart?.id))}><DeleteRounded sx={{ color: '#f72548' }} /></button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
                             )
                         })
+
                     }
                 </div>
 
-                <div className='cart-cfoot flex align-start justify-between py-3 bg-white'>
-                    <div className='cart-cfoot-l'>
-                        <button type='button' className='clear-cart-btn text-danger fs-15 text-uppercase fw-4' onClick={() => dispatch(clearCart())}>
-                            <i className='fas fa-trash'></i>
-                            <span className='mx-1'>Clear Cart</span>
-                        </button>
-                    </div>
-
-                    <div className='cart-cfoot-r flex flex-column justify-end'>
-                        <div className='total-txt flex align-center justify-end'>
-                            <div className='font-manrope fw-5'>Total ({itemsCount}) items: </div>
-                            <span className='text-orange fs-22 mx-2 fw-6'>{formatPrice(totalAmount)}</span>
+                <div className='cart-cfoot'>
+                    <div className='cart-cfoot-r'>
+                        <h3 className='font-manrope'>Total ({itemsCount}) items in Cart: </h3>
+                        <div className="sub-total">
+                            <p>Subtotal</p>
+                            <p className='subtotal-amount'>{formatPrice(totalAmount)}</p>
                         </div>
-
-                        <button type="button" className='checkout-btn text-white bg-orange fs-16'>Check Out</button>
+                        <Divider style={{ margin: '2px' }} />
+                        <div className="shipping">
+                            <p>Shipping Fee</p>
+                            <p className='shipping-amount'>FREE!!!</p>
+                        </div>
+                        <Divider style={{ margin: '2px' }} />
+                        <div className="total-amount">
+                            <h4>Total </h4>
+                            <h4>{formatPrice(totalAmount)}</h4>
+                        </div>
+                    </div>
+                    <div className='cart-cfoot-btn'>
+                        <button type='button' className='clear-cart-btn' onClick={() => dispatch(clearCart())}>
+                            <DeleteOutlineRounded sx={{ color: 'white' }} />
+                            <span className='clear-btn'>Clear Cart</span>
+                        </button>
+                        <Link to='/checkout'>
+                            <button type="button" className='checkout-btn'>Check Out</button>
+                        </Link>
                     </div>
                 </div>
             </div>

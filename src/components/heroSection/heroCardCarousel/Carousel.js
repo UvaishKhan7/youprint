@@ -39,7 +39,7 @@ export default function Carousel() {
                     <SwiperSlide className='slider__card' key={i}>
                         <div className="card__details">
                             <div className="img-container">
-                                <img src={slide.img} alt="img" className='card__img' />
+                                <img src={slide} alt="img" className='card__img' />
                             </div>
                             <div className="name">
                                 <p>{slide}</p>

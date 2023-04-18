@@ -3,7 +3,7 @@ import './landingPage.css';
 import GiftCardSlider from '../../components/giftCardSlider/GiftCardSlider';
 import Carousel from '../../components/heroSection/heroCardCarousel/Carousel';
 import ProductCard from '../../components/productCard/ProductCard';
-import { Pagination } from 'antd';
+import { Divider, Pagination } from 'antd';
 
 const LandingPage = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -95,7 +95,9 @@ const LandingPage = () => {
             {/* Gifts Section */}
             <div className="gifts__section">
                 <div className="gifts__section__header">
-                    <h2>Gifts By Occasion</h2>
+                    <Divider>
+                        <h2>Gifts By Occasion</h2>
+                    </Divider>
                 </div>
                 <div className="gift__cards__section">
                     <GiftCardSlider />

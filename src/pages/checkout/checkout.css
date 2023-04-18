@@ -1,0 +1,86 @@
+.biling-container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 2rem auto;
+  font-family: var(--font-arimo);
+}
+
+.biling-container > .address-form {
+  margin: 1rem 0;
+}
+
+.biling-container > .address-form > h1 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.biling-container > .address-form > form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.biling-container > .address-form > form > .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.biling-container > .address-form > form > .form-group > .form-control {
+  border: 1px solid #ebebeb;
+  width: 40%;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+}
+
+.order-details > h3 {
+  font-weight: 600;
+}
+
+.ordered-products {
+  width: 50%;
+  text-align: left;
+  border: 1px solid #ebebeb;
+}
+
+.ordered-products > thead,
+.ordered-products > tbody,
+.ordered-products > tfoot {
+  width: 100%;
+}
+
+.ordered-products > thead > tr > th {
+  font-weight: 500;
+}
+
+tr > th,
+tr > td {
+  border-bottom: 1px solid #ebebeb;
+  margin: 1rem 0;
+}
+
+tr > td {
+  font-size: 0.9rem;
+  line-height: 2.5rem;
+}
+
+tr > .tb-cl-1 {
+  width: 50%;
+  padding-left: 1rem;
+}
+
+tr > .tb-cl-2 {
+  width: 25%;
+  text-align: center;
+}
+
+tr > .tb-cl-3 {
+  width: 25%;
+  text-align: right;
+  padding-right: 1rem;
+}
+
+tr > th {
+  line-height: 2.5rem;
+  background-color: #f5f5f5a1;
+}

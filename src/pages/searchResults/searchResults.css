@@ -11,3 +11,24 @@
     gap: 0.5rem;
   }
 }
+
+.search-result-container {
+  width: 100%;
+  height: 35vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-result-container > h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.search-result-container > a > button {
+  background-color: var(--color-buttons);
+  color: white;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+}

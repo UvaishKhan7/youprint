@@ -1,5 +1,5 @@
 .mobile-navbar {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(196, 196, 196, 0.3);
   width: 80%;
   display: flex;
   justify-content: space-evenly;
@@ -71,7 +71,7 @@
   border-radius: 3rem;
   margin: 0;
   padding: 0 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: white;
 }
 
@@ -81,7 +81,7 @@
 }
 
 .mobile-navbar-search > input::placeholder {
-  color: rgba(255, 255, 255, 0.699);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .cart_badge {
@@ -100,7 +100,7 @@
   background-color: rgb(248, 43, 78);
   color: aliceblue;
   border-radius: 50%;
-  z-index: -1;
+  z-index: 1;
 }
 
 @media screen and (min-width: 1025px) {

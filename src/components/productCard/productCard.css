@@ -22,6 +22,11 @@
   z-index: 1;
 }
 
+.product__card > .heart > button {
+  display: grid;
+  place-items: center;
+}
+
 .product__info__container {
   width: 100%;
   height: 100%;
@@ -155,6 +160,7 @@
   padding: 0.5rem 1rem;
   height: 3rem;
   font-weight: 600;
+  color: var(--color-text);
 }
 
 .product__info__container
@@ -224,6 +230,7 @@
     > span
     > img {
     width: 1rem;
+    color: var(--color-text);
   }
   .product__info__container > .card__bottom > .product__add > a > button {
     height: 2.5rem;
