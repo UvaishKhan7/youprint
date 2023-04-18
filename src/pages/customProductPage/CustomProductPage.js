@@ -11,8 +11,6 @@ import Contact from '../../assets/products/operator.svg';
 import Camera from '../../assets/products/product_image/camera.svg';
 import Gallery from '../../assets/products/product_image/gallery.svg';
 import Text from '../../assets/products/product_image/text.svg';
-import Zoom from '../../assets/products/product_image/zoom-in.svg';
-import Layer from '../../assets/products/product_image/layer.svg';
 import { formatPrice } from "../../utils/helpers";
 import { STATUS } from '../../utils/status';
 import { addToCart } from '../../redux/cartSlice';
@@ -22,6 +20,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DeleteForeverOutlined } from '@mui/icons-material';
 import { Rnd } from 'react-rnd';
 import html2canvas from 'html2canvas';
+import { AiOutlineZoomIn, AiOutlineZoomOut } from 'react-icons/ai';
+import { GrPowerReset } from 'react-icons/gr';
 
 export default function CustomProductPage() {
 
@@ -210,8 +210,9 @@ export default function CustomProductPage() {
                         )}
                     </div>
                     <div className="bottom__buttons__container">
-                        <button> <img src={Zoom} alt="share" />ZOOM</button>
-                        <button> <img src={Layer} alt="share" />LAYERS</button>
+                        <button> <AiOutlineZoomIn />Zoom In</button>
+                        <button> <AiOutlineZoomOut />Zoom Out</button>
+                        <button> <GrPowerReset />Reset</button>
                     </div>
                 </div>
                 <div className="custom__product__shop__options">
