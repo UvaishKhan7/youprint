@@ -209,9 +209,6 @@ export default function CustomProductPage() {
                             <button style={{ position: 'absolute', left: '0.2rem', top: '0.2rem', backgroundColor: 'rgba(255,255,255,0.4)', height: '2.5rem', width: '2.5rem', padding: '0.25rem', borderRadius: '50%', display: 'grid', placeItems: 'center' }} onClick={handleDeleteImage}><DeleteForeverOutlined sx={{ color: 'red' }} /> </button>
                         )}
                     </div>
-                    <div className="thd__image">
-                        <img src={product.thumbnail} alt="3d view" />
-                    </div>
                     <div className="bottom__buttons__container">
                         <button> <img src={Zoom} alt="share" />ZOOM</button>
                         <button> <img src={Layer} alt="share" />LAYERS</button>
