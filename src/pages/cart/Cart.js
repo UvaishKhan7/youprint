@@ -95,7 +95,7 @@ const CartPage = () => {
                                             <button type="button" className='delete-btn text-dark' onClick={() => dispatch(removeFromCart(cart?.id))}><DeleteRounded sx={{ color: '#f72548' }} /></button>
                                         </div>
                                         <div className='cart-ctd cart-ctd2'>
-                                            <img src={cart?.thumbnail} alt="item_img" />
+                                            <img src={cart.editedImage ? cart.editedImage : cart?.thumbnail} alt="item_img" />
                                         </div>
                                         <div className='cart-ctd cart-ctd3'>
                                             <span className='cart-ctxt'>{cart?.title}</span>
@@ -121,7 +121,7 @@ const CartPage = () => {
                                     <div className='cart-ctr' key={cart?.id}>
                                         <div className="cart-upper">
                                             <div className='upper-img'>
-                                                <img src={cart?.thumbnail} alt="item_img" />
+                                                <img src={cart.editedImage ? cart.editedImage : cart?.thumbnail} alt="item_img" />
                                             </div>
                                             <div className="upper-right">
                                                 <div className='mobile-title'>{cart?.title}</div>

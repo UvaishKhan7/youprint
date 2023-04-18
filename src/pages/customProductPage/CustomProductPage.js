@@ -19,9 +19,9 @@ import { addToCart } from '../../redux/cartSlice';
 import { fetchAsyncProductSingle, getProductSingle, getSingleProductStatus } from '../../redux/productSlice';
 import Loader from "../../components/loader/Loader";
 import { useDispatch, useSelector } from 'react-redux';
-import { saveAs } from "file-saver";
 import { DeleteForeverOutlined } from '@mui/icons-material';
 import { Rnd } from 'react-rnd';
+import html2canvas from 'html2canvas';
 
 export default function CustomProductPage() {
 
@@ -29,6 +29,7 @@ export default function CustomProductPage() {
     const [previewImage, setPreviewImage] = useState(null);
     const [isImageDeleted, setIsImageDeleted] = useState(false);
     const inputFileRef = useRef(null);
+    const targetDivRef = useRef(null);
 
     const location = useLocation();
     const { id } = useParams();
@@ -61,6 +62,21 @@ export default function CustomProductPage() {
         setIsImageDeleted(true);
     }
 
+    // Function to capture screenshot or save a div
+    const captureScreenshot = () => {
+        html2canvas(targetDivRef.current, { useCORS: true })
+            .then(canvas => {
+                const imageDataUrl = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.href = imageDataUrl;
+                link.download = 'design.png';
+                link.click();
+            })
+            .catch(error => {
+                console.error('Error capturing screenshot:', error);
+            });
+    };
+
     let discountedPrice = (product?.price) - (product?.price * (product?.discountPercentage / 100));
     if (productSingleStatus === STATUS.LOADING) {
         return (
@@ -89,8 +105,16 @@ export default function CustomProductPage() {
         let discountedPrice = (product?.price) - (product?.price * (product?.discountPercentage / 100));
         let totalPrice = quantity * discountedPrice;
 
-        dispatch(addToCart({ ...product, quantity: quantity, totalPrice, discountedPrice }));
-    }
+        html2canvas(targetDivRef.current, { useCORS: true })
+            .then(canvas => {
+                const imageDataUrl = canvas.toDataURL('image/png');
+                // Dispatch action to update cart state with captured image data URL
+                dispatch(addToCart({ ...product, quantity: quantity, totalPrice, discountedPrice, editedImage: imageDataUrl }));
+            })
+            .catch(error => {
+                console.error('Error capturing screenshot:', error);
+            });
+    };
 
     const handleChange = (value) => {
         console.log(`selected ${value}`);
@@ -116,11 +140,6 @@ export default function CustomProductPage() {
             key: 'home',
         },
     ].concat(extraBreadcrumbItems);
-
-    const handleDownload = () => {
-        let url = `${product.thumbnail}`
-        saveAs(url, "YourDesign");
-    }
 
     const items = [
         {
@@ -171,7 +190,7 @@ export default function CustomProductPage() {
                         <button> <img src={Gallery} alt="share" />Add Sticker</button>
                         <button> <img src={Text} alt="share" />Add Text</button>
                     </div>
-                    <div className="custom__product__img__container">
+                    <div className="custom__product__img__container" ref={targetDivRef}>
                         {/* Render the image preview */}
                         <img className="custom__product__page__image" src={product.thumbnail} alt='product' />
                         {previewImage && !isImageDeleted && (
@@ -189,9 +208,9 @@ export default function CustomProductPage() {
                         {previewImage && !isImageDeleted && (
                             <button style={{ position: 'absolute', left: '0.2rem', top: '0.2rem', backgroundColor: 'rgba(255,255,255,0.4)', height: '2.5rem', width: '2.5rem', padding: '0.25rem', borderRadius: '50%', display: 'grid', placeItems: 'center' }} onClick={handleDeleteImage}><DeleteForeverOutlined sx={{ color: 'red' }} /> </button>
                         )}
-                        <div className="thd__image">
-                            <img src={product.thumbnail} alt="3d view" />
-                        </div>
+                    </div>
+                    <div className="thd__image">
+                        <img src={product.thumbnail} alt="3d view" />
                     </div>
                     <div className="bottom__buttons__container">
                         <button> <img src={Zoom} alt="share" />ZOOM</button>
@@ -271,7 +290,7 @@ export default function CustomProductPage() {
                     <div className="custom__product__options__btn">
                         <button> <img src={Share} alt="share" /> Share Design</button>
                         <button> <img src={Save} alt="save" /> Save Design</button>
-                        <button onClick={handleDownload} > <img src={Download} alt="download" /> Download Design</button>
+                        <button onClick={captureScreenshot} > <img src={Download} alt="download" /> Download Design</button>
                         <button> <img src={Discount} alt="discount" /> 10% Cash back</button>
                         <button> <img src={Delivery} alt="delivery" /> Check Delivery</button>
                         <button> <img src={Contact} alt="contact" /> Contact Us</button>

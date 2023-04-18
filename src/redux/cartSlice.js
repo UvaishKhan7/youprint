@@ -25,6 +25,7 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => {
+            const {editedImage } = action.payload;
             const isItemInCart = state.carts.find(item => item.id === action.payload.id);
 
             if(isItemInCart){
@@ -34,7 +35,7 @@ const cartSlice = createSlice({
                         let tempTotalPrice = tempQty * item.price;
 
                         return {
-                            ...item, quantity: tempQty, totalPrice: tempTotalPrice
+                            ...item, quantity: tempQty, totalPrice: tempTotalPrice, editedImage: editedImage
                         }
                     } else {
                         return item;
@@ -44,7 +45,7 @@ const cartSlice = createSlice({
                 state.carts = tempCart;
                 storeInLocalStorage(state.carts);
             } else {
-                state.carts.push(action.payload);
+                state.carts.push({...action.payload, editedImage});
                 storeInLocalStorage(state.carts);
             }
         },
@@ -69,6 +70,7 @@ const cartSlice = createSlice({
         },
 
         toggleCartQty: (state, action) => {
+            const { editedImage } = action.payload;
             const tempCart = state.carts.map(item => {
                 if(item.id === action.payload.id){
                     let tempQty = item.quantity;
@@ -86,7 +88,7 @@ const cartSlice = createSlice({
                         tempTotalPrice = tempQty * item.discountedPrice;
                     }
 
-                    return {...item, quantity: tempQty, totalPrice: tempTotalPrice};
+                    return {...item, quantity: tempQty, totalPrice: tempTotalPrice, editedImage: editedImage};
                 } else {
                     return item;
                 }
