@@ -20,7 +20,7 @@
 
 .dropdown-list {
   min-width: 10rem;
-  background: var(--color-primary);
+  background: var(--color-secondary);
   position: absolute;
   top: 110%;
   right: 0;
@@ -50,14 +50,20 @@
 }
 
 .dropdown-list-item:hover {
-  background-color: var(--color-secondary);
+  background-color: var(--color-primary);
 }
 
 @media (min-width: 240px) and (max-width: 800px) {
   .dropdown-list-item {
     background-color: var(--color-secondary);
+    width: 100%;
+  }
+  .mobile-view,
+  .dropdown-wrapper {
+    width: 100%;
   }
   .dropdown-button {
+    width: 100%;
     text-align: right;
   }
   .dropdown-list {

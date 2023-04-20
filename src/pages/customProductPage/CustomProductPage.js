@@ -17,11 +17,9 @@ import { addToCart } from '../../redux/cartSlice';
 import { fetchAsyncProductSingle, getProductSingle, getSingleProductStatus } from '../../redux/productSlice';
 import Loader from "../../components/loader/Loader";
 import { useDispatch, useSelector } from 'react-redux';
-import { DeleteForeverOutlined } from '@mui/icons-material';
+import { DeleteForeverOutlined, ZoomIn, ZoomOut, RestartAlt } from '@mui/icons-material';
 import { Rnd } from 'react-rnd';
 import html2canvas from 'html2canvas';
-import { AiOutlineZoomIn, AiOutlineZoomOut } from 'react-icons/ai';
-import { GrPowerReset } from 'react-icons/gr';
 
 export default function CustomProductPage() {
 
@@ -30,6 +28,8 @@ export default function CustomProductPage() {
     const [isImageDeleted, setIsImageDeleted] = useState(false);
     const inputFileRef = useRef(null);
     const targetDivRef = useRef(null);
+    const [showTextBox, setShowTextBox] = useState(false);
+    const [text, setText] = useState('');
 
     const location = useLocation();
     const { id } = useParams();
@@ -41,6 +41,10 @@ export default function CustomProductPage() {
         dispatch(fetchAsyncProductSingle(id));
         // eslint-disable-next-line
     }, []);
+
+    const handleTextChange = (e) => {
+        setText(e.target.value);
+    };
 
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
@@ -188,7 +192,7 @@ export default function CustomProductPage() {
                             />
                         </button>
                         <button> <img src={Gallery} alt="share" />Add Sticker</button>
-                        <button> <img src={Text} alt="share" />Add Text</button>
+                        <button onClick={() => setShowTextBox(true)}> <img src={Text} alt="share" />Add Text</button>
                     </div>
                     <div className="custom__product__img__container" ref={targetDivRef}>
                         {/* Render the image preview */}
@@ -196,23 +200,32 @@ export default function CustomProductPage() {
                         {previewImage && !isImageDeleted && (
                             <Rnd
                                 default={{
-                                    x: 0,
-                                    y: 0,
-                                    width: 320,
-                                    height: 200,
+                                    x: 20,
+                                    y: 20,
+                                    width: 150,
+                                    height: 150,
                                 }}
                             >
                                 <img src={previewImage} alt="Preview" style={{ position: 'absolute', width: '100%', height: 'auto', objectFit: 'contain' }} />
                             </Rnd>
                         )}
-                        {previewImage && !isImageDeleted && (
-                            <button style={{ position: 'absolute', left: '0.2rem', top: '0.2rem', backgroundColor: 'rgba(255,255,255,0.4)', height: '2.5rem', width: '2.5rem', padding: '0.25rem', borderRadius: '50%', display: 'grid', placeItems: 'center' }} onClick={handleDeleteImage}><DeleteForeverOutlined sx={{ color: 'red' }} /> </button>
+                        {showTextBox && (
+                            <div className='input-text-box'>
+                                <input
+                                    type="text"
+                                    value={text}
+                                    onChange={handleTextChange}
+                                    placeholder="Type something..."
+                                />
+                                <button onClick={() => setShowTextBox(false)} ><DeleteForeverOutlined /></button>
+                            </div>
                         )}
                     </div>
                     <div className="bottom__buttons__container">
-                        <button> <AiOutlineZoomIn />Zoom In</button>
-                        <button> <AiOutlineZoomOut />Zoom Out</button>
-                        <button> <GrPowerReset />Reset</button>
+                        <button> <ZoomIn /></button>
+                        <button> <ZoomOut /></button>
+                        <button> <RestartAlt /></button>
+                        <button onClick={handleDeleteImage}><DeleteForeverOutlined /></button>
                     </div>
                 </div>
                 <div className="custom__product__shop__options">

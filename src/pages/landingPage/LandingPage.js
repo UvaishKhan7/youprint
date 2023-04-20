@@ -4,6 +4,9 @@ import GiftCardSlider from '../../components/giftCardSlider/GiftCardSlider';
 import Carousel from '../../components/heroSection/heroCardCarousel/Carousel';
 import ProductCard from '../../components/productCard/ProductCard';
 import { Divider, Pagination } from 'antd';
+import BannerLeft from '../../components/heroSection/bannerLeft/BannerLeft';
+import BannerRightUppper from '../../components/heroSection/bannerRightUppper/BannerRightUpper';
+import BannerRightLower from '../../components/heroSection/bannerRightLower/BannerRightLower';
 
 const LandingPage = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -48,6 +51,17 @@ const LandingPage = () => {
 
     return (
         <div className='landing__container'>
+
+            {/* Bannrs */}
+            <div className="banner-container">
+                <div className="banner-left">
+                    <BannerLeft />
+                </div>
+                <div className="banner-right">
+                    <BannerRightUppper />
+                    <BannerRightLower />
+                </div>
+            </div>
 
             {/* Carousel */}
             <div className="carousel_swiper">

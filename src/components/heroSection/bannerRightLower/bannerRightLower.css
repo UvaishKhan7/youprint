@@ -1,0 +1,54 @@
+.banner-right-lower-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #c91739;
+  color: white;
+  font-family: var(--default-font);
+}
+
+.banner-right-lower-text {
+  padding-left: 5rem;
+}
+
+.banner-right-lower-text > p {
+  font-family: var(--default-font);
+  font-size: 0.9rem;
+}
+
+.banner-right-lower-text > h1 {
+  font-family: var(--default-font);
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.banner-right-lower-text > button {
+  background-color: white;
+  font-family: var(--default-font);
+  font-weight: 600;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.banner-right-lower-text > button > span {
+  font-size: 1.25rem;
+  display: grid;
+  place-items: center;
+}
+
+.banner-right-lower-image {
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: left;
+}
+
+.banner-right-lower-image > img {
+  width: 90%;
+}

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Loader from '../../components/loader/Loader';
 import { STATUS } from '../../utils/status';
-import { fetchAsyncSearchProduct, getSearchProducts, setSearchTerm, getSearchProductsStatus, clearSearch } from '../../redux/searchSlice';
+import { fetchAsyncSearchProduct, getSearchProducts, getSearchProductsStatus, clearSearch } from '../../redux/searchSlice';
 import ProductCard from '../../components/productCard/ProductCard';
 
 export default function SearchResults() {
@@ -17,6 +17,7 @@ export default function SearchResults() {
     useEffect(() => {
         dispatch(clearSearch());
         dispatch(fetchAsyncSearchProduct(searchTerm));
+        // eslint-disable-next-line
     }, [searchTerm]);
 
     if (searchProducts.length === 0) {

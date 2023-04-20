@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './carousel.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation, Autoplay } from 'swiper';
+import { Navigation, Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -23,7 +23,7 @@ export default function Carousel() {
     return (
         <div className="s-container">
             <Swiper
-                modules={[Autoplay, Pagination, Navigation]}
+                modules={[Autoplay, Navigation]}
                 className='mySwiper'
                 navigation={true}
                 slidesPerView={isMobile ? 1 : 3}

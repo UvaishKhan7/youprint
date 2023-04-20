@@ -1,20 +1,20 @@
 import React from 'react';
 import './giftCardSlider.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation, Autoplay } from 'swiper';
+import { Navigation, Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { GiftCards } from '../../assets/data/Products';
 
-export default function Carousel() {
+export default function Carousel() { 
 
     const isMobile = window.innerWidth <= 768;
 
     return (
         <div className="gift-s-container">
             <Swiper
-                modules={[Pagination, Navigation, Autoplay]}
+                modules={[Navigation, Autoplay]}
                 className='mySwiper'
                 navigation={true}
                 slidesPerView={isMobile ? 1 : 4}
@@ -23,7 +23,7 @@ export default function Carousel() {
                 loop={true}
                 autoplay={{
                     delay: 3000,
-                    disableOnInteraction: true
+                    disableOnInteraction: false
                 }}
             >
                 {GiftCards.map((slide, i) => (
