@@ -17,19 +17,23 @@ import { addToCart } from '../../redux/cartSlice';
 import { fetchAsyncProductSingle, getProductSingle, getSingleProductStatus } from '../../redux/productSlice';
 import Loader from "../../components/loader/Loader";
 import { useDispatch, useSelector } from 'react-redux';
-import { DeleteForeverOutlined, ZoomIn, ZoomOut, RestartAlt } from '@mui/icons-material';
-import { Rnd } from 'react-rnd';
+import { DeleteForeverOutlined, RestartAlt } from '@mui/icons-material';
 import html2canvas from 'html2canvas';
+import Moveable from 'react-moveable';
+import { flushSync } from 'react-dom';
 
 export default function CustomProductPage() {
 
     const [quantity, setQuantity] = useState(1);
     const [previewImage, setPreviewImage] = useState(null);
     const [isImageDeleted, setIsImageDeleted] = useState(false);
-    const inputFileRef = useRef(null);
-    const targetDivRef = useRef(null);
     const [showTextBox, setShowTextBox] = useState(false);
     const [text, setText] = useState('');
+
+    const inputFileRef = useRef(null);
+    const targetDivRef = useRef(null);
+    const targetImgRef = useRef(null);
+    const targetTextRef = useRef(null);
 
     const location = useLocation();
     const { id } = useParams();
@@ -62,6 +66,16 @@ export default function CustomProductPage() {
 
     const handleDeleteImage = () => {
         // Reset the preview image and set the isImageDeleted state to true
+        setPreviewImage(null);
+        setIsImageDeleted(true);
+    }
+
+    const handleTextDelete = () => {
+        setText('');
+    }
+
+    const handleResetEdit = () => {
+        setText('');
         setPreviewImage(null);
         setIsImageDeleted(true);
     }
@@ -198,16 +212,44 @@ export default function CustomProductPage() {
                         {/* Render the image preview */}
                         <img className="custom__product__page__image" src={product.thumbnail} alt='product' />
                         {previewImage && !isImageDeleted && (
-                            <Rnd
-                                default={{
-                                    x: 20,
-                                    y: 20,
-                                    width: 150,
-                                    height: 150,
-                                }}
-                            >
-                                <img src={previewImage} alt="Preview" style={{ position: 'absolute', width: '100%', height: 'auto', objectFit: 'contain' }} />
-                            </Rnd>
+                            <>
+                                <img src={previewImage} ref={targetImgRef} alt="Preview" style={{ position: 'absolute', width: '20%', height: 'auto', objectFit: 'contain' }} />
+                                <Moveable
+                                    flushSync={flushSync}
+                                    target={targetImgRef}
+                                    draggable={true}
+                                    throttleDrag={1}
+                                    edgeDraggable={false}
+                                    startDragRotate={0}
+                                    throttleDragRotate={0}
+                                    onDrag={e => {
+                                        e.target.style.transform = e.transform;
+                                    }}
+                                    resizable={true}
+                                    keepRatio={false}
+                                    throttleResize={1}
+                                    renderDirections={["nw", "n", "ne", "w", "e", "sw", "s", "se"]}
+                                    onResize={e => {
+                                        e.target.style.width = `${e.width}px`;
+                                        e.target.style.height = `${e.height}px`;
+                                        e.target.style.transform = e.drag.transform;
+
+                                    }}
+                                    rotatable={true}
+                                    throttleRotate={0}
+                                    rotationPosition={"top"}
+                                    onRotate={e => {
+                                        e.target.style.transform = e.drag.transform;
+                                    }}
+                                    scalable={true}
+                                    pinchable={true}
+                                    pinchOutside={true}
+                                    onRender={e => {
+                                        e.target.style.cssText += e.cssText;
+                                    }}
+                                />
+                            </>
+
                         )}
                         {showTextBox && (
                             <div className='input-text-box'>
@@ -220,12 +262,52 @@ export default function CustomProductPage() {
                                 <button onClick={() => setShowTextBox(false)} ><DeleteForeverOutlined /></button>
                             </div>
                         )}
+                        {
+                            text && (
+                                <>
+                                    <p ref={targetTextRef} className='custom-text'>{text}</p>
+                                    <Moveable
+                                        flushSync={flushSync}
+                                        target={targetTextRef}
+                                        draggable={true}
+                                        throttleDrag={1}
+                                        edgeDraggable={false}
+                                        startDragRotate={0}
+                                        throttleDragRotate={0}
+                                        onDrag={e => {
+                                            e.target.style.transform = e.transform;
+                                        }}
+                                        resizable={true}
+                                        keepRatio={false}
+                                        throttleResize={1}
+                                        renderDirections={["nw", "n", "ne", "w", "e", "sw", "s", "se"]}
+                                        onResize={e => {
+                                            e.target.style.width = `${e.width}px`;
+                                            e.target.style.height = `${e.height}px`;
+                                            e.target.style.transform = e.drag.transform;
+
+                                        }}
+                                        rotatable={true}
+                                        throttleRotate={0}
+                                        rotationPosition={"top"}
+                                        onRotate={e => {
+                                            e.target.style.transform = e.drag.transform;
+                                        }}
+                                        scalable={true}
+                                        pinchable={true}
+                                        pinchOutside={true}
+                                        onRender={e => {
+                                            e.target.style.cssText += e.cssText;
+                                        }}
+                                    />
+                                </>
+                            )
+                        }
                     </div>
                     <div className="bottom__buttons__container">
-                        <button> <ZoomIn /></button>
-                        <button> <ZoomOut /></button>
-                        <button> <RestartAlt /></button>
-                        <button onClick={handleDeleteImage}><DeleteForeverOutlined /></button>
+                        <button onClick={handleDeleteImage}><DeleteForeverOutlined />Delete Image</button>
+                        <button onClick={handleTextDelete}> <DeleteForeverOutlined />Delete Text</button>
+                        <button onClick={handleResetEdit}> <RestartAlt />Reset Edit</button>
                     </div>
                 </div>
                 <div className="custom__product__shop__options">

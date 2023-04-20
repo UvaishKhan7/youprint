@@ -39,7 +39,23 @@ html {
 }
 
 ::-webkit-scrollbar {
-  display: none;
+  width: 1rem;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #c4e4fa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3f5966;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-orange);
 }
 
 body {
@@ -47,7 +63,7 @@ body {
 }
 
 a,
-Link {
+link {
   text-decoration: none;
   cursor: pointer;
   font-family: "Poppins", sans-serif;

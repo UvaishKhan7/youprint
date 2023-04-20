@@ -25,9 +25,8 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
   justify-content: space-between;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .top__buttons__container {
@@ -36,6 +35,7 @@
   display: flex;
   justify-content: space-evenly;
   gap: 0.5rm;
+  padding: 0.5rem;
 }
 
 .top__buttons__container > button {
@@ -64,8 +64,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin: 1rem 0;
-  margin-top: 0;
+  margin: 0;
   padding: 0;
   position: relative;
   height: auto;
@@ -75,7 +74,6 @@
   width: 100%;
   height: auto;
   object-fit: contain;
-  margin-top: 1rem;
 }
 
 .input-text-box {
@@ -89,6 +87,12 @@
   background-color: var(--color-skyblue);
   border-radius: 0.25rem;
   border: 1px solid var(--color-primary);
+}
+
+.custom-text {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
 }
 
 .input-text-box > input {
@@ -106,10 +110,14 @@
 
 .bottom__buttons__container {
   display: flex;
-  width: 95%;
-  overflow-x: auto;
-  padding-left: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: scroll;
   gap: 0.5rem;
+  width: max-content;
+  height: max-content;
+  padding: 0.5rem;
+  width: 100%;
 }
 
 .bottom__buttons__container > button {
@@ -118,7 +126,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  min-width: max-content;
+  gap: 0.25rem;
   border-radius: 0.25rem;
 }
 
@@ -372,9 +382,6 @@
   }
   .top__buttons__container > button > img {
     width: 1rem;
-  }
-  .custom__product__img__container {
-    height: 55vh;
   }
   .custom__product__img__container > img {
     width: 100%;
