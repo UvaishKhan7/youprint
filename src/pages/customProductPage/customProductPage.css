@@ -132,6 +132,60 @@
   place-items: center;
 }
 
+.input-text-color {
+  width: 45%;
+  height: max-content;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  overflow-y: auto;
+  border-top: 1px solid var(--color-border);
+}
+
+.input-text-color > input {
+  width: 80%;
+}
+
+.input-text-color > p {
+  font-size: 0.8rem;
+}
+
+.input-text-color > .choose {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 0.5px solid var(--color-border);
+}
+
+.input-text-color,
+.font-styles-popup-menu {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 50%;
+  width: 40%;
+  overflow-y: auto;
+  background-color: rgb(216, 244, 255);
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--color-primary);
+}
+
+.input-text-color::-webkit-scrollbar:vertical,
+.font-styles-popup-menu::-webkit-scrollbar:vertical {
+  width: 0.5rem;
+}
+
+.input-text-color::-webkit-scrollbar:horizontal {
+  display: none;
+}
+
+.font-styles-popup-menu > ul > li {
+  padding: 0.25rem;
+  margin-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(4, 66, 90, 0.623);
+}
+
 .bottom__buttons__container {
   display: flex;
   align-items: center;

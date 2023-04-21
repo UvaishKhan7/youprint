@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './customProductPage.css';
-import { Breadcrumb, Rate, Select, Tabs } from 'antd';
+import { Breadcrumb, Divider, Rate, Select, Tabs } from 'antd';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import Share from '../../assets/products/share.svg';
 import Save from '../../assets/products/bookmark.svg';
@@ -17,10 +17,12 @@ import { addToCart } from '../../redux/cartSlice';
 import { fetchAsyncProductSingle, getProductSingle, getSingleProductStatus } from '../../redux/productSlice';
 import Loader from "../../components/loader/Loader";
 import { useDispatch, useSelector } from 'react-redux';
-import { DeleteForeverOutlined, FormatColorFill, FormatSize, RestartAlt } from '@mui/icons-material';
+import { DeleteForeverOutlined, Draw, FormatColorFill, FormatSize, HighlightOff, RestartAlt } from '@mui/icons-material';
 import html2canvas from 'html2canvas';
 import Moveable from 'react-moveable';
 import { flushSync } from 'react-dom';
+import FontStyles from '../../assets/data/fontStyles';
+import defaultColors from '../../assets/data/defaultColors';
 
 export default function CustomProductPage() {
 
@@ -34,6 +36,8 @@ export default function CustomProductPage() {
     const [textSize, setTextSize] = useState(30);
     const [textColor, setTextColor] = useState('#1ce912');
     const [activeElement, setActiveElement] = useState(null);
+    const [showFontStyle, setShowFontStyle] = useState(false);
+    const [selectedFont, setSelectedFont] = useState('Arial');
 
     const inputFileRef = useRef(null);
     const targetDivRef = useRef(null);
@@ -63,22 +67,37 @@ export default function CustomProductPage() {
         setTextColor(e.target.value);
     };
 
+    const handleFontStyle = () => {
+        setShowFontStyle(true);
+        setShowTextBox(false);
+        setShowTextSize(false);
+        setShowTextColor(false);
+    }
+
+    const handleFontSelect = (font) => {
+        setSelectedFont(font.family);
+        setShowFontStyle(false);
+    }
+
     const onTextBoxBtn = () => {
         setShowTextBox(true);
         setShowTextSize(false);
         setShowTextColor(false);
+        setShowFontStyle(false);
     }
 
     const onTextSzBtn = () => {
         setShowTextSize(true);
         setShowTextColor(false);
         setShowTextBox(false);
+        setShowFontStyle(false);
     }
 
     const onTextClrBtn = () => {
         setShowTextColor(true);
         setShowTextSize(false);
         setShowTextBox(false);
+        setShowFontStyle(false);
     }
 
     const handleImageUpload = (e) => {
@@ -244,6 +263,7 @@ export default function CustomProductPage() {
         }
     ];
 
+
     return (
         <div className='custom__product__page__container'>
             <div className='custom__product__page__upper'>
@@ -320,7 +340,7 @@ export default function CustomProductPage() {
                         {
                             text && (
                                 <>
-                                    <p ref={targetTxtRef} onClick={handleTxtClick} className='custom-text' style={{ color: `${textColor}`, fontSize: `${textSize}px` }}>{text}</p>
+                                    <p ref={targetTxtRef} onClick={handleTxtClick} className='custom-text' style={{ color: `${textColor}`, fontSize: `${textSize}px`, fontFamily: selectedFont }}>{text}</p>
                                     <Moveable
                                         flushSync={flushSync}
                                         target={activeElement}
@@ -368,24 +388,47 @@ export default function CustomProductPage() {
                                     value={textSize}
                                     onChange={handleTextSize}
                                 />
-                                <button onClick={() => setShowTextSize(false)} ><DeleteForeverOutlined /></button>
+                                <button onClick={() => setShowTextSize(false)} ><HighlightOff /></button>
                             </div>
                         )}
                         {text && showTextColor && (
                             <div className='input-text-color'>
+                                <p>Select Color</p>
+                                <button onClick={() => setShowTextColor(false)} ><HighlightOff /></button>
+                                <Divider style={{ margin: '4px' }} />
+                                {
+                                    defaultColors.map((color) => {
+                                        return (
+                                            <button onClick={() => setTextColor(color.hex)} className="choose" style={{ backgroundColor: color.hex }} key={color.hex}></button>
+                                        )
+                                    })
+                                }
+                                <Divider style={{ margin: '4px' }} />
+                                <p>Or click to choose</p>
                                 <input
                                     type="color"
                                     value={textColor}
                                     onChange={handleTextColor}
                                 />
-                                <button onClick={() => setShowTextColor(false)} ><DeleteForeverOutlined /></button>
+                                <button onClick={() => setShowTextColor(false)} ><HighlightOff /></button>
+                            </div>
+                        )}
+                        {text && showFontStyle && (
+                            <div className="font-styles-popup-menu">
+                                <ul>
+                                    {FontStyles.map(font => (
+                                        <li key={font.name} onClick={() => handleFontSelect(font)} style={{ fontFamily: font.family }}>
+                                            {font.name}
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         )}
                     </div>
                     <div className="bottom__buttons__container">
                         <button onClick={onTextSzBtn}> <FormatSize />Text Size</button>
                         <button onClick={onTextClrBtn}> <FormatColorFill />Text Color</button>
-                        <button onClick={onTextClrBtn}> <FormatColorFill />Font Style</button>
+                        <button onClick={handleFontStyle}> <Draw />Font Style</button>
                         <button onClick={handleDeleteImage}><DeleteForeverOutlined />Delete Image</button>
                         <button onClick={handleTextDelete}> <DeleteForeverOutlined />Delete Text</button>
                         <button onClick={handleResetEdit}> <RestartAlt />Reset Edit</button>
