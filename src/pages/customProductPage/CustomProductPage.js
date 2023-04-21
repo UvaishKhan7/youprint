@@ -17,7 +17,7 @@ import { addToCart } from '../../redux/cartSlice';
 import { fetchAsyncProductSingle, getProductSingle, getSingleProductStatus } from '../../redux/productSlice';
 import Loader from "../../components/loader/Loader";
 import { useDispatch, useSelector } from 'react-redux';
-import { DeleteForeverOutlined, RestartAlt } from '@mui/icons-material';
+import { DeleteForeverOutlined, FormatColorFill, FormatSize, RestartAlt } from '@mui/icons-material';
 import html2canvas from 'html2canvas';
 import Moveable from 'react-moveable';
 import { flushSync } from 'react-dom';
@@ -28,12 +28,17 @@ export default function CustomProductPage() {
     const [previewImage, setPreviewImage] = useState(null);
     const [isImageDeleted, setIsImageDeleted] = useState(false);
     const [showTextBox, setShowTextBox] = useState(false);
+    const [showTextSize, setShowTextSize] = useState(false);
+    const [showTextColor, setShowTextColor] = useState(false);
     const [text, setText] = useState('');
+    const [textSize, setTextSize] = useState(30);
+    const [textColor, setTextColor] = useState('#edff47');
+    const [activeElement, setActiveElement] = useState(null);
 
     const inputFileRef = useRef(null);
     const targetDivRef = useRef(null);
     const targetImgRef = useRef(null);
-    const targetTextRef = useRef(null);
+    const targetTxtRef = useRef(null);
 
     const location = useLocation();
     const { id } = useParams();
@@ -49,6 +54,32 @@ export default function CustomProductPage() {
     const handleTextChange = (e) => {
         setText(e.target.value);
     };
+
+    const handleTextSize = (e) => {
+        setTextSize(parseInt(e.target.value));
+    }
+
+    const handleTextColor = (e) => {
+        setTextColor(e.target.value);
+    };
+
+    const onTextBoxBtn = () => {
+        setShowTextBox(true);
+        setShowTextSize(false);
+        setShowTextColor(false);
+    }
+
+    const onTextSzBtn = () => {
+        setShowTextSize(true);
+        setShowTextColor(false);
+        setShowTextBox(false);
+    }
+
+    const onTextClrBtn = () => {
+        setShowTextColor(true);
+        setShowTextSize(false);
+        setShowTextBox(false);
+    }
 
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
@@ -79,6 +110,30 @@ export default function CustomProductPage() {
         setPreviewImage(null);
         setIsImageDeleted(true);
     }
+
+    const handleImgClick = () => {
+        setActiveElement(targetImgRef.current);
+    }
+
+    const handleTxtClick = () => {
+        setActiveElement(targetTxtRef.current);
+    }
+
+    useEffect(() => {
+        const handleWindowClick = (e) => {
+            if (
+                !e.target.classList.contains('custom-image') &&
+                !e.target.classList.contains('custom-text')
+            ) {
+                setActiveElement(null);
+            }
+        };
+        window.addEventListener('click', handleWindowClick);
+
+        return () => {
+            window.removeEventListener('click', handleWindowClick);
+        };
+    }, []);
 
     // Function to capture screenshot or save a div
     const captureScreenshot = () => {
@@ -206,17 +261,17 @@ export default function CustomProductPage() {
                             />
                         </button>
                         <button> <img src={Gallery} alt="share" />Add Sticker</button>
-                        <button onClick={() => setShowTextBox(true)}> <img src={Text} alt="share" />Add Text</button>
+                        <button onClick={onTextBoxBtn}> <img src={Text} alt="share" />Add Text</button>
                     </div>
                     <div className="custom__product__img__container" ref={targetDivRef}>
                         {/* Render the image preview */}
                         <img className="custom__product__page__image" src={product.thumbnail} alt='product' />
                         {previewImage && !isImageDeleted && (
                             <>
-                                <img src={previewImage} ref={targetImgRef} alt="Preview" style={{ position: 'absolute', width: '20%', height: 'auto', objectFit: 'contain' }} />
+                                <img src={previewImage} ref={targetImgRef} onClick={handleImgClick} alt="Preview" style={{ position: 'absolute', width: '20%', height: 'auto', objectFit: 'contain' }} className='custom-image' />
                                 <Moveable
                                     flushSync={flushSync}
-                                    target={targetImgRef}
+                                    target={activeElement}
                                     draggable={true}
                                     throttleDrag={1}
                                     edgeDraggable={false}
@@ -265,49 +320,40 @@ export default function CustomProductPage() {
                         {
                             text && (
                                 <>
-                                    <p ref={targetTextRef} className='custom-text'>{text}</p>
-                                    <Moveable
-                                        flushSync={flushSync}
-                                        target={targetTextRef}
-                                        draggable={true}
-                                        throttleDrag={1}
-                                        edgeDraggable={false}
-                                        startDragRotate={0}
-                                        throttleDragRotate={0}
-                                        onDrag={e => {
-                                            e.target.style.transform = e.transform;
-                                        }}
-                                        resizable={true}
-                                        keepRatio={false}
-                                        throttleResize={1}
-                                        renderDirections={["nw", "n", "ne", "w", "e", "sw", "s", "se"]}
-                                        onResize={e => {
-                                            e.target.style.width = `${e.width}px`;
-                                            e.target.style.height = `${e.height}px`;
-                                            e.target.style.transform = e.drag.transform;
-
-                                        }}
-                                        rotatable={true}
-                                        throttleRotate={0}
-                                        rotationPosition={"top"}
-                                        onRotate={e => {
-                                            e.target.style.transform = e.drag.transform;
-                                        }}
-                                        scalable={true}
-                                        pinchable={true}
-                                        pinchOutside={true}
-                                        onRender={e => {
-                                            e.target.style.cssText += e.cssText;
-                                        }}
-                                    />
+                                    <p ref={targetTxtRef} onClick={handleTxtClick} className='custom-text' style={{ color: `${textColor}`, fontSize: `${textSize}px` }}>{text}</p>
                                 </>
                             )
                         }
+                        {text && showTextSize && (
+                            <div className='input-text-size'>
+                                <input
+                                    type="range"
+                                    name="textSize"
+                                    min="0"
+                                    max="100"
+                                    value={textSize}
+                                    onChange={handleTextSize}
+                                />
+                                <button onClick={() => setShowTextSize(false)} ><DeleteForeverOutlined /></button>
+                            </div>
+                        )}
+                        {text && showTextColor && (
+                            <div className='input-text-color'>
+                                <input
+                                    type="color"
+                                    value={textColor}
+                                    onChange={handleTextColor}
+                                />
+                                <button onClick={() => setShowTextColor(false)} ><DeleteForeverOutlined /></button>
+                            </div>
+                        )}
                     </div>
                     <div className="bottom__buttons__container">
                         <button onClick={handleDeleteImage}><DeleteForeverOutlined />Delete Image</button>
                         <button onClick={handleTextDelete}> <DeleteForeverOutlined />Delete Text</button>
                         <button onClick={handleResetEdit}> <RestartAlt />Reset Edit</button>
+                        <button onClick={onTextSzBtn}> <FormatSize />Text Size</button>
+                        <button onClick={onTextClrBtn}> <FormatColorFill />Text Color</button>
                     </div>
                 </div>
                 <div className="custom__product__shop__options">

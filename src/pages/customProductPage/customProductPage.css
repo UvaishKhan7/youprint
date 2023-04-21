@@ -30,7 +30,6 @@
 }
 
 .top__buttons__container {
-  height: fit-content;
   width: 100%;
   display: flex;
   justify-content: space-evenly;
@@ -46,7 +45,7 @@
   justify-content: center;
   gap: 0.5rem;
   width: 8rem;
-  height: max-content;
+  height: 100%;
   padding: 0.4rem 0.5rem;
   border-radius: 0.25rem;
   @media screen and (max-width: 1224) {
@@ -89,10 +88,25 @@
   border: 1px solid var(--color-primary);
 }
 
+.input-text-size,
+.input-text-color {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-skyblue);
+  border-radius: 0.25rem;
+  border: 1px solid var(--color-primary);
+}
+
 .custom-text {
   position: absolute;
-  top: 2rem;
-  left: 2rem;
+  top: 4rem;
+  left: 4rem;
+  cursor: pointer;
 }
 
 .input-text-box > input {
@@ -105,6 +119,13 @@
   display: grid;
   width: 15%;
   color: rgb(255, 71, 95);
+  place-items: center;
+}
+
+.input-text-color > button,
+.input-text-size > button {
+  color: rgb(255, 71, 95);
+  display: grid;
   place-items: center;
 }
 
@@ -379,6 +400,7 @@
     width: 6rem;
     padding: 0.25rem 0.5rem;
     font-size: 0.8rem;
+    height: 100%;
   }
   .top__buttons__container > button > img {
     width: 1rem;
