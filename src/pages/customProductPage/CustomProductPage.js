@@ -32,7 +32,7 @@ export default function CustomProductPage() {
     const [showTextColor, setShowTextColor] = useState(false);
     const [text, setText] = useState('');
     const [textSize, setTextSize] = useState(30);
-    const [textColor, setTextColor] = useState('#edff47');
+    const [textColor, setTextColor] = useState('#1ce912');
     const [activeElement, setActiveElement] = useState(null);
 
     const inputFileRef = useRef(null);
@@ -321,6 +321,40 @@ export default function CustomProductPage() {
                             text && (
                                 <>
                                     <p ref={targetTxtRef} onClick={handleTxtClick} className='custom-text' style={{ color: `${textColor}`, fontSize: `${textSize}px` }}>{text}</p>
+                                    <Moveable
+                                        flushSync={flushSync}
+                                        target={activeElement}
+                                        draggable={true}
+                                        throttleDrag={1}
+                                        edgeDraggable={false}
+                                        startDragRotate={0}
+                                        throttleDragRotate={0}
+                                        onDrag={e => {
+                                            e.target.style.transform = e.transform;
+                                        }}
+                                        resizable={true}
+                                        keepRatio={false}
+                                        throttleResize={1}
+                                        renderDirections={["nw", "n", "ne", "w", "e", "sw", "s", "se"]}
+                                        onResize={e => {
+                                            e.target.style.width = `${e.width}px`;
+                                            e.target.style.height = `${e.height}px`;
+                                            e.target.style.transform = e.drag.transform;
+
+                                        }}
+                                        rotatable={true}
+                                        throttleRotate={0}
+                                        rotationPosition={"top"}
+                                        onRotate={e => {
+                                            e.target.style.transform = e.drag.transform;
+                                        }}
+                                        scalable={true}
+                                        pinchable={true}
+                                        pinchOutside={true}
+                                        onRender={e => {
+                                            e.target.style.cssText += e.cssText;
+                                        }}
+                                    />
                                 </>
                             )
                         }
@@ -349,11 +383,12 @@ export default function CustomProductPage() {
                         )}
                     </div>
                     <div className="bottom__buttons__container">
+                        <button onClick={onTextSzBtn}> <FormatSize />Text Size</button>
+                        <button onClick={onTextClrBtn}> <FormatColorFill />Text Color</button>
+                        <button onClick={onTextClrBtn}> <FormatColorFill />Font Style</button>
                         <button onClick={handleDeleteImage}><DeleteForeverOutlined />Delete Image</button>
                         <button onClick={handleTextDelete}> <DeleteForeverOutlined />Delete Text</button>
                         <button onClick={handleResetEdit}> <RestartAlt />Reset Edit</button>
-                        <button onClick={onTextSzBtn}> <FormatSize />Text Size</button>
-                        <button onClick={onTextClrBtn}> <FormatColorFill />Text Color</button>
                     </div>
                 </div>
                 <div className="custom__product__shop__options">
