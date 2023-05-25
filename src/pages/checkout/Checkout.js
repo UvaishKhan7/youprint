@@ -48,6 +48,14 @@ export default function Checkout() {
                         <input type="text" className="form-control" name="name" />
                     </div>
                     <div className="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" className="form-control" name="phone" />
+                    </div>
+                    <div className="form-group">
+                        <label>Email</label>
+                        <input type="email" className="form-control" name="email" />
+                    </div>
+                    <div className="form-group">
                         <label>Address</label>
                         <input type="text" className="form-control" name="address" />
                     </div>
@@ -69,14 +77,6 @@ export default function Checkout() {
                     <div className="form-group">
                         <label>Zip Code</label>
                         <input type="text" className="form-control" name="zipcode" />
-                    </div>
-                    <div className="form-group">
-                        <label>Phone Number</label>
-                        <input type="text" className="form-control" name="phone" />
-                    </div>
-                    <div className="form-group">
-                        <label>Email</label>
-                        <input type="email" className="form-control" name="email" />
                     </div>
                 </form>
             </div>

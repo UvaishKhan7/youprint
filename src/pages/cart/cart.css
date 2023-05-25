@@ -176,7 +176,7 @@
 
 .cart-cfoot {
   margin: 1rem 0;
-  width: 50%;
+  width: 100%;
 }
 
 .cart-cfoot,
@@ -203,7 +203,8 @@
 }
 
 .cart-cfoot-btn,
-.clear-cart-btn {
+.clear-cart-btn,
+.checkout-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -223,6 +224,7 @@
 }
 
 .checkout-btn {
+  gap: 0.5rem;
   background-color: #26a130;
 }
 
@@ -322,5 +324,9 @@
   .cart-cfoot {
     margin: 1rem 0;
     width: 98%;
+  }
+  .checkout-btn{
+    display: flex;
+    align-items: center;
   }
 }

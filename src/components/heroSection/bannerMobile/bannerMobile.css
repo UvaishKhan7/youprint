@@ -1,0 +1,86 @@
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner1-wrapper,
+.banner2-wrapper,
+.banner3-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 25vh;
+  color: white;
+}
+
+.banner1-wrapper {
+  background-image: url(../../../assets/images/banner/bnr-bg1.png);
+}
+
+.banner2-wrapper {
+  background-image: url(../../../assets/images/banner/bnr-img2.png);
+  background-size: cover;
+  height: 100%;
+}
+
+.banner3-wrapper {
+  background-color: #c91739;
+}
+
+.banner-text {
+  padding: 2rem 1rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.banner-text > p {
+  font-size: 0.8rem;
+}
+
+.banner-text > button {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.banner-text > button > span {
+  display: grid;
+  place-items: center;
+}
+
+.banner2-wrapper {
+  width: 50%;
+  display: flex;
+  justify-content: right;
+}
+
+.banner2-wrapper > .banner-text {
+  text-align: right;
+}

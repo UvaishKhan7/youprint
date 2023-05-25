@@ -84,3 +84,20 @@ tr > th {
   line-height: 2.5rem;
   background-color: #f5f5f5a1;
 }
+
+/* ======================================= For Small Screens ======================================= */
+@media screen and (max-width: 800px) {
+  .biling-container,
+  .address-form,
+  .order-details,
+  .payment-details {
+    width: 100%;
+    padding: 0.5rem;
+  }
+  .ordered-products,
+  .address-form > form,
+  .biling-container > .address-form > form > .form-group,
+  .biling-container > .address-form > form > .form-group > .form-control {
+    width: 100%;
+  }
+}

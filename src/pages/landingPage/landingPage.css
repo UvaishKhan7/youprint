@@ -114,3 +114,19 @@
     width: 96%;
   }
 }
+
+@media screen and (max-width: 1165px) {
+  .banner-container {
+    display: none;
+  }
+  .mobile-banner-container {
+    width: 100%;
+  }
+}
+
+
+@media screen and (min-width: 1165px) {
+  .mobile-banner-container {
+    display: none;
+  }
+}

@@ -7,6 +7,7 @@ import { Divider, Pagination } from 'antd';
 import BannerLeft from '../../components/heroSection/bannerLeft/BannerLeft';
 import BannerRightUppper from '../../components/heroSection/bannerRightUppper/BannerRightUpper';
 import BannerRightLower from '../../components/heroSection/bannerRightLower/BannerRightLower';
+import BannerMobile from '../../components/heroSection/bannerMobile/BannerMobile';
 
 const LandingPage = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -51,6 +52,12 @@ const LandingPage = () => {
 
     return (
         <div className='landing__container'>
+
+            {/* Banners for Mobile */}
+
+            <div className="mobile-banner-container">
+                <BannerMobile />
+            </div>
 
             {/* Bannrs */}
             <div className="banner-container">

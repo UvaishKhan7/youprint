@@ -6,8 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { formatPrice } from '../../utils/helpers';
 import { getAllCarts, removeFromCart, toggleCartQty, clearCart } from '../../redux/cartSlice';
 import { Breadcrumb, Divider } from 'antd';
-import swal from 'sweetalert';
-import { DeleteOutlineRounded, DeleteRounded } from '@mui/icons-material';
+import { DeleteForever, DeleteOutlineRounded, PointOfSale } from '@mui/icons-material';
 
 const CartPage = () => {
 
@@ -19,12 +18,6 @@ const CartPage = () => {
     const isMobile = window.innerWidth <= 800;
 
     if (carts.length === 0) {
-        swal({
-            icon: 'info',
-            text: "Your cart is empty! Please add something in your cart.",
-            timer: '3000',
-            buttons: false
-        })
         return (
             <div className='cart__container'>
                 <div className='empty-cart'>
@@ -92,7 +85,7 @@ const CartPage = () => {
                                     ?
                                     <div className='cart-ctr' key={cart?.id}>
                                         <div className='cart-ctd cart-ctd1'>
-                                            <button type="button" className='delete-btn text-dark' onClick={() => dispatch(removeFromCart(cart?.id))}><DeleteRounded sx={{ color: '#f72548' }} /></button>
+                                            <button type="button" className='delete-btn text-dark' onClick={() => dispatch(removeFromCart(cart?.id))}><DeleteForever sx={{ color: '#f72548' }} /></button>
                                         </div>
                                         <div className='cart-ctd cart-ctd2'>
                                             <img src={cart.editedImage ? cart.editedImage : cart?.thumbnail} alt="item_img" />
@@ -140,7 +133,7 @@ const CartPage = () => {
                                                 <button onClick={() => dispatch(toggleCartQty({ id: cart?.id, type: "INC" }))}>+</button>
                                             </div>
                                             <div className='mobile-delete'>
-                                                <button type="button" className='delete-btn text-dark' onClick={() => dispatch(removeFromCart(cart?.id))}><DeleteRounded sx={{ color: '#f72548' }} /></button>
+                                                <button type="button" className='delete-btn text-dark' onClick={() => dispatch(removeFromCart(cart?.id))}><DeleteForever sx={{ color: '#f72548' }} /></button>
                                             </div>
                                         </div>
                                     </div>
@@ -170,11 +163,14 @@ const CartPage = () => {
                     </div>
                     <div className='cart-cfoot-btn'>
                         <button type='button' className='clear-cart-btn' onClick={() => dispatch(clearCart())}>
-                            <DeleteOutlineRounded sx={{ color: 'white' }} />
+                            <DeleteOutlineRounded />
                             <span className='clear-btn'>Clear Cart</span>
                         </button>
                         <Link to='/checkout'>
-                            <button type="button" className='checkout-btn'>Check Out</button>
+                            <button type="button" className='checkout-btn'>
+                                <PointOfSale />
+                                <span> Check Out</span>
+                            </button>
                         </Link>
                     </div>
                 </div>
